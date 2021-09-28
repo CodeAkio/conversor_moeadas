@@ -21,7 +21,7 @@ class InputTextWidget extends StatelessWidget {
       child: TextField(
         controller: controller,
         onChanged: onChanged,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         decoration: InputDecoration(
             labelText: label,
             labelStyle: const TextStyle(color: Colors.amber),

@@ -29,7 +29,18 @@ class _HomePageState extends State<HomePage> {
     return data;
   }
 
+  void _clearAll() {
+    _realController.text = "";
+    _dollarController.text = "";
+    _euroController.text = "";
+  }
+
   void _realChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+
     var real = double.parse(text);
 
     _dollarController.text = (real / _dollar).toStringAsFixed(2);
@@ -37,6 +48,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _dollarChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+
     var dollar = double.parse(text);
 
     _realController.text = (dollar * _dollar).toStringAsFixed(2);
@@ -44,6 +60,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _euroChanged(String text) {
+    if (text.isEmpty) {
+      _clearAll();
+      return;
+    }
+
     var euro = double.parse(text);
 
     _realController.text = (euro * _euro).toStringAsFixed(2);
