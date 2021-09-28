@@ -20,6 +20,7 @@ class InputTextWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: TextField(
         controller: controller,
+        onChanged: onChanged,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
             labelText: label,

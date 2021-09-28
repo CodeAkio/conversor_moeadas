@@ -17,6 +17,9 @@ class _HomePageState extends State<HomePage> {
   final _dollarController = TextEditingController();
   final _euroController = TextEditingController();
 
+  double _dollar = 0.0;
+  double _euro = 0.0;
+
   Future<Map> _getData() async {
     const url = "https://api.hgbrasil.com/finance?format=json&key=1adfe53b";
     var uri = Uri.parse(url);
@@ -26,11 +29,26 @@ class _HomePageState extends State<HomePage> {
     return data;
   }
 
-  void _realChanged(String text) {}
+  void _realChanged(String text) {
+    var real = double.parse(text);
 
-  void _dollarChanged(String text) {}
+    _dollarController.text = (real / _dollar).toStringAsFixed(2);
+    _euroController.text = (real / _euro).toStringAsFixed(2);
+  }
 
-  void _euroChanged(String text) {}
+  void _dollarChanged(String text) {
+    var dollar = double.parse(text);
+
+    _realController.text = (dollar * _dollar).toStringAsFixed(2);
+    _euroController.text = (dollar * _dollar / _euro).toStringAsFixed(2);
+  }
+
+  void _euroChanged(String text) {
+    var euro = double.parse(text);
+
+    _realController.text = (euro * _euro).toStringAsFixed(2);
+    _dollarController.text = (euro * _euro / _dollar).toStringAsFixed(2);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +79,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               } else {
-                var dollar =
-                    snapshot.data!["results"]["currencies"]["USD"]["buy"];
-                var euro =
-                    snapshot.data!["results"]["currencies"]["EUR"]["buy"];
+                _dollar = snapshot.data!["results"]["currencies"]["USD"]["buy"];
+                _euro = snapshot.data!["results"]["currencies"]["EUR"]["buy"];
 
                 return SingleChildScrollView(
                   padding: const EdgeInsets.all(10),
